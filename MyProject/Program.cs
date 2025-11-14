@@ -1,11 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-
-class Program
+﻿static void Main()
 {
-    static void Main()
-    {
     Console.Write("Enter the upper limit: ");
     if (!int.TryParse(Console.ReadLine(), out int limit) || limit < 2)
     {
@@ -24,25 +18,25 @@ class Program
         Console.Write(primes[i] + " ");
     }
     Console.WriteLine("...");
-}
 
-    static List<int> GeneratePrimes(int limit)
+    List<int> gaps = new List<int>();
+    for (int i = 1; i < primes.Count; i++)
     {
-        List<int> primes = new List<int>();
-        for (int num = 2; num <= limit; num++)
-        {
-            if (IsPrime(num))
-                primes.Add(num);
-        }
-        return primes;
+        gaps.Add(primes[i] - primes[i - 1]);
     }
 
-    static bool IsPrime(int n)
+    if (gaps.Count > 0)
     {
-        if (n < 2) return false;
-        for (int i = 2; i * i <= n; i++)
-            if (n % i == 0)
-                return false;
-        return true;
+        int maxGap = 0;
+        int sumGap = 0;
+        foreach (var g in gaps)
+        {
+            if (g > maxGap) maxGap = g;
+            sumGap += g;
+        }
+        double avgGap = (double)sumGap / gaps.Count;
+        Console.WriteLine($"\nPrime gaps analysis:");
+        Console.WriteLine($"Largest gap: {maxGap}");
+        Console.WriteLine($"Average gap: {avgGap:F2}");
     }
 }
