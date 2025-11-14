@@ -32,7 +32,7 @@ public class PrimeAnalyzer
 
     public void PrintFirstPrimes(int count)
     {
-        Console.WriteLine("First {0} primes:", count);
+        Console.WriteLine($"First {count} primes:");
         for (int i = 0; i < Math.Min(count, Primes.Count); i++)
             Console.Write(Primes[i] + " ");
         Console.WriteLine("...");
